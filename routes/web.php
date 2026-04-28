@@ -21,4 +21,9 @@ Route::post('/student/update/{id}', [StudentController::class, 'update'])->name(
 Route::delete('/student/destroy/{id}', [StudentController::class,'destroy'])->name('student.destroy');
 
 Route::get('/lecturer', [LecturerController::class, 'index'])->name('lecturer.index');
+Route::get('/lecturer/create', [LecturerController::class, 'create'])->name('lecturer.create');
+Route::post('/lecturer/store', [LecturerController::class, 'store'])->name('lecturer.store');
+Route::get('/lecturer/edit/{id}', [LecturerController::class, 'edit'])->name('lecturer.edit');
+Route::post('/lecturer/update/{id}', [LecturerController::class, 'update'])->name('lecturer.update');
+Route::delete('/lecturer/destroy/{id}', [LecturerController::class,'destroy'])->name('lecturer.destroy');
 

@@ -13,8 +13,8 @@ class LecturerController extends Controller
     public function index()
     {
         //
-        $datapengajar = Lecturer::all();
-        return view('frontend.lecturer.index', ['datapengajar' => $datapengajar]);
+        $lecturers = Lecturer::all();
+        return view('frontend.lecturer.index', compact('lecturers'));
     }
 
     /**
@@ -23,6 +23,7 @@ class LecturerController extends Controller
     public function create()
     {
         //
+        return view('frontend.lecturer.create');
     }
 
     /**
@@ -31,6 +32,16 @@ class LecturerController extends Controller
     public function store(Request $request)
     {
         //
+        $datapelajar = $request->validate([
+            'name' => 'required',
+            'no_ic' => 'required|numeric',
+            'no_tel' => 'required|numeric',
+            'email' => 'required',
+            'bidang' => 'required',
+        ]);
+
+        $databaru = Lecturer::create($datapelajar);
+        return redirect(route('lecturer.index'));
     }
 
     /**
@@ -44,24 +55,31 @@ class LecturerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Lecturer $lecturer)
+    public function edit(string $id)
     {
         //
+        $lecturer = Lecturer::findOrFail($id);
+        return view('frontend.lecturer.edit', compact('lecturer'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Lecturer $lecturer)
+    public function update(Request $request, string $id)
     {
         //
+        $pelajar = Lecturer::find($id);
+        $input = $request->all();
+        $pelajar->update($input);
+        return redirect(route('lecturer.index'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Lecturer $lecturer)
+    public function destroy(string $id)
     {
-        //
+        Lecturer::destroy($id);
+        return redirect(route('lecturer.index'));
     }
 }

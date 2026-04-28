@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('lecturers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('no_ic');
             $table->string('no_tel');
+            $table->string('email');
+            $table->string('bidang');
             $table->timestamps();
         });
     }
