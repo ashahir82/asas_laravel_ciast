@@ -6,7 +6,7 @@ use App\Http\Controllers\StudentController;
 
 Route::get('/', function () {
     //vreturn view('welcome');
-    return view('frontend.ciast');
+    return view('layouts.master');
 });
 
 Route::get('/admin', function () {

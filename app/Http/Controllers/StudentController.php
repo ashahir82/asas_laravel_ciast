@@ -13,8 +13,8 @@ class StudentController extends Controller
     public function index()
     {
         //
-        $datapelajar = Student::all();
-        return view('frontend.student.index', ['datapelajar' => $datapelajar]);
+        $students = Student::all();
+        return view('frontend.student.index', ['students' => $students]);
     }
 
     /**
