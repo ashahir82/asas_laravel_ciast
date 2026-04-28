@@ -1,6 +1,7 @@
 @extends('layouts.master')
 @section('content')
-    <h2>HALAMAN PELAJAR</h2>
+    <h2>SENARAI PELAJAR</h2>
+    <a class="btn btn-primary" href="student/create" role="button">Tambah</a>
     <table id="resultTable" class="table">
         <thead>
             <tr>
@@ -10,6 +11,8 @@
                 <th>Kursus</th>
                 <th>Semester</th>
                 <th>No Tel</th>
+                <th>Alamat</th>
+                <th>Tindakan</th>
             </tr>
         </thead>
         <tbody>
@@ -26,6 +29,8 @@
                         <td>{{ $student->course }}</td>
                         <td>{{ $student->semester }}</td>
                         <td>{{ $student->no_tel }}</td>
+                        <td>{{ $student->address }}</td>
+                        <td>Kemaskini | Padam</td>
                     </tr>
                 @endforeach
             @endif

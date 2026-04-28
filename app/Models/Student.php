@@ -11,6 +11,7 @@ class Student extends Model
         'ndp',
         'course',
         'semester',
-        'no_tel'
+        'no_tel',
+        'address'
     ];
 }

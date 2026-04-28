@@ -23,6 +23,7 @@ class StudentController extends Controller
     public function create()
     {
         //
+        return view('frontend.student.create');
     }
 
     /**
@@ -31,6 +32,17 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         //
+        $datapelajar = $request->validate([
+            'name' => 'required',
+            'ndp' => 'required|numeric',
+            'course' => 'required',
+            'semester' => 'required|numeric',
+            'no_tel' => 'required|numeric',
+            'address' => 'required',
+        ]);
+
+        $databaru = Student::create($datapelajar);
+        return redirect(route('student.index'));
     }
 
     /**
