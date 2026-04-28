@@ -14,7 +14,7 @@ class StudentController extends Controller
     {
         //
         $students = Student::all();
-        return view('frontend.student.index', ['students' => $students]);
+        return view('frontend.student.index', compact('students'));
     }
 
     /**

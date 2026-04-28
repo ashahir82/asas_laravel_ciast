@@ -1,9 +1,10 @@
 @extends('layouts.master')
 @section('content')
     <h2>HALAMAN PELAJAR</h2>
-    <table class="table">
+    <table id="resultTable" class="table">
         <thead>
             <tr>
+                <th>#</th>
                 <th>Nama</th>
                 <th>NDP</th>
                 <th>Kursus</th>
@@ -19,6 +20,7 @@
             @else
                 @foreach($students as $student)
                     <tr>
+                        <td>{{ $loop->iteration }}</td>
                         <td>{{ $student->name }}</td>
                         <td>{{ $student->ndp }}</td>
                         <td>{{ $student->course }}</td>
