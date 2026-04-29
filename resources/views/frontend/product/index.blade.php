@@ -36,16 +36,21 @@ rounded-lg
 rounded-lg overflow-hidden">
                         <thead class="bg-gray-50 text-gray-700">
                             <tr>
+                                <th class="px-4 py-3 text-left font-semibold borderb">#</th>
                                 <th class="px-4 py-3 text-left font-semibold borderb">GAMBAR</th>
                                 <th class="px-4 py-3 text-left font-semibold borderb">TAJUK</th>
                                 <th class="px-4 py-3 text-left font-semibold borderb">HARGA</th>
                                 <th class="px-4 py-3 text-left font-semibold borderb">STOK</th>
+                                <th class="px-4 py-3 text-left font-semibold borderb">KETERANGAN</th>
                                 <th class="px-4 py-3 text-left font-semibold borderb w-[220px]">TINDAKAN</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($product as $Product)
                                 <tr class="border-b last:border-b-0">
+                                    <td class="px-4 py-3">
+                                        {{ ($product->currentPage() - 1) * $product->perPage() + $loop->iteration }}
+                                    </td>
                                     <td class="px-4 py-3">
                                         <div class="flex justify-center">
                                             <img src="{{ asset('/storage/product/' . $Product->gambar) }}"
@@ -61,6 +66,9 @@ rounded-lg overflow-hidden">
                                     </td>
                                     <td class="px-4 py-3 text-gray-700">
                                         {{ $Product->stok }}
+                                    </td>
+                                    <td class="px-4 py-3 text-gray-700">
+                                        {!! $Product->keterangan !!}
                                     </td>
                                     <td class="px-4 py-3">
                                         <form action="{{ route('product.destroy', $Product->id) }}" method="POST"
