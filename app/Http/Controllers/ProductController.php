@@ -14,7 +14,7 @@ class ProductController extends Controller
     public function index()
     {
         // dapatkan semua product
-        $product = Product::latest()->paginate(3);
+        $product = Product::latest()->paginate(5);
         //paparkan product di fail index
         return view('frontend.product.index', compact('product'));
     }

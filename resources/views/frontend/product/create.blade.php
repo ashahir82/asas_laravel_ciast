@@ -37,7 +37,7 @@
                         <label class="block text-sm font-semibold text-gray-700 mb-2">IMAGE</label>
                         <input type="file" name="gambar"
                             class="block w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-gray-900 file:text-white hover:file:bg-gray-800 border border-gray-200 rounded-lg bg-white">
-                        @error('image')
+                        @error('gambar')
                             <div class="mt-2 text-sm text-red-600">
                                 {{ $message }}
                             </div>
