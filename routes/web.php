@@ -3,9 +3,10 @@
 use App\Http\Controllers\LecturerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\ProductController;
 
 Route::get('/', function () {
-    //vreturn view('welcome');
+    // return view('welcome');
     return view('layouts.master');
 });
 
@@ -27,3 +28,4 @@ Route::get('/lecturer/edit/{id}', [LecturerController::class, 'edit'])->name('le
 Route::post('/lecturer/update/{id}', [LecturerController::class, 'update'])->name('lecturer.update');
 Route::delete('/lecturer/destroy/{id}', [LecturerController::class,'destroy'])->name('lecturer.destroy');
 
+Route::resource('/product', ProductController::class);
