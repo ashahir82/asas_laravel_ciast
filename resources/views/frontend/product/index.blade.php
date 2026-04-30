@@ -1,118 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initialscale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Asas Data Produk</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</head>
-
-<body class="bg-gray-100">
-    <div class="max-w-6xl mx-auto px-4 py-10">
-        <div class="text-center">
-            <h3 class="text-2xl font-bold mb-2">Asas Laravel 12 untuk
-                produk </h3>
-            <h5 class="text-sm">
-                <a href="https://" class="text-blue-600 hover:underline"> www.
-                </a>
-            </h5>
-            <hr class="my-6 border-gray-200">
-        </div>
-        <div class="bg-white rounded-2xl shadow-sm border border-gray200">
-            <div class="p-6">
-                <a href="{{ route('product.create') }}"
-                    class="inline-flex items-center justify-center px-4 py-2
-rounded-lg
- bg-emerald-600 text-white text-sm font-semibold hover:bg-emerald-700 transition mb-4">
-                    TAMBAH PRODUK
-                </a>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-sm border border-gray-200
-rounded-lg overflow-hidden">
-                        <thead class="bg-gray-50 text-gray-700">
-                            <tr>
-                                <th class="px-4 py-3 text-left font-semibold borderb">#</th>
-                                <th class="px-4 py-3 text-left font-semibold borderb">GAMBAR</th>
-                                <th class="px-4 py-3 text-left font-semibold borderb">TAJUK</th>
-                                <th class="px-4 py-3 text-left font-semibold borderb">HARGA</th>
-                                <th class="px-4 py-3 text-left font-semibold borderb">STOK</th>
-                                <th class="px-4 py-3 text-left font-semibold borderb">KETERANGAN</th>
-                                <th class="px-4 py-3 text-left font-semibold borderb w-[220px]">TINDAKAN</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($product as $Product)
-                                <tr class="border-b last:border-b-0">
-                                    <td class="px-4 py-3">
-                                        {{ ($product->currentPage() - 1) * $product->perPage() + $loop->iteration }}
-                                    </td>
-                                    <td class="px-4 py-3">
-                                        <div class="flex justify-center">
-                                            <img src="{{ asset('/storage/product/' . $Product->gambar) }}"
-                                                class="w-[150px] rounded-lg borderborder-gray-200"
-                                                alt="{{ $Product->tajuk }}">
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-3 font-medium text-gray900">
-                                        {{ $Product->tajuk }}
-                                    </td>
-                                    <td class="px-4 py-3 text-gray-700">
-                                        {{ 'RM ' . number_format($Product->harga, 2, ',', '.') }}
-                                    </td>
-                                    <td class="px-4 py-3 text-gray-700">
-                                        {{ $Product->stok }}
-                                    </td>
-                                    <td class="px-4 py-3 text-gray-700">
-                                        {!! $Product->keterangan !!}
-                                    </td>
-                                    <td class="px-4 py-3">
-                                        <form action="{{ route('product.destroy', $Product->id) }}" method="POST"
-                                            class="delete-form flex items-center gap-2">
-                                            <a href="{{ route('product.show', $Product->id) }}"
-                                                class="px-3 py-2 rounded-lg bg-gray-900 text-white text-xs font-semibold hover:bg-gray800 transition">
-                                                PAPARKAN
-                                            </a>
-                                            <a href="{{ route('product.edit', $Product->id) }}"
-                                                class="px-3 py-2 rounded-lg bg-blue-600 text-white text-xs font-semibold hover:bg-blue700 transition">
-                                                EDIT
-                                            </a>
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit"
-                                                class="px-3 py-2 rounded-lg bg-red-600 text-white text-xs font-semibold hover:bg-red700 transition">
-                                                HAPUS
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="5" class="px-4 py-6">
-                                        <div class="bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3">
-                                            Data Produk belum ada.
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-                <div class="mt-4">
-                    {{ $product->links() }}
+@extends('layouts.master')
+@section('content')
+    <a href="{{ route('product.create') }}" type="button" class="btn btn-success mb-4">
+        <i class="bi bi-bag-plus"></i>
+        TAMBAH PRODUK
+    </a>
+    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+        @forelse ($product as $Product)
+            <div class="col mb-5">
+                <div class="card h-100">
+                    <!-- Product image-->
+                    <img class="card-img-top" src="{{ asset('/storage/product/' . $Product->gambar) }}"
+                        alt="{{ $Product->tajuk }}" />
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder">{{ $Product->tajuk }}</h5>
+                            <!-- Product price-->
+                            {{ 'RM ' . number_format($Product->harga, 2, ',', '.') }}
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center">
+                            <form action="{{ route('product.destroy', $Product->id) }}" method="POST"
+                                class="delete-form flex items-center gap-2">
+                                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                    <a href="{{ route('product.show', $Product->id) }}" class="btn btn-info">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a href="{{ route('product.edit', $Product->id) }}" class="btn btn-danger">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-warning">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        @empty
+            <div class="col mb-5">
+                <div class="card h-100">
+                    <!-- Product image-->
+                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder">Fancy Product</h5>
+                            <!-- Product price-->
+                            $40.00 - $80.00
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center">
+                            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                <a class="btn btn-info" href="#">View options</a>
+                                <a class="btn btn-warning" href="#">View options</a>
+                                <a class="btn btn-danger" href="#">View options</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforelse
+    </div>
+    <div class="mt-4">
+        {{ $product->links() }}
     </div>
     <!-- SweetAlert Script -->
     <script>
         // SweetAlert for delete confirmation
         document.querySelectorAll('.delete-form').forEach(form => {
-            form.addEventListener('submit', function(e) {
+            form.addEventListener('submit', function (e) {
                 e.preventDefault();
                 Swal.fire({
                     title: 'Apakah Anda yakin?',
@@ -141,6 +107,4 @@ rounded-lg overflow-hidden">
             });
         @endif
     </script>
-</body>
-
-</html>
+@endsection
